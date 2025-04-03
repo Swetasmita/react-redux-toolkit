@@ -1,27 +1,36 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import "../styles/navbar.css"
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "../styles/navbar.css";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const {cartProductIds} = useSelector((state) => state.cart);
   return (
-      <nav className="navbar">
-        {/* Shop Icon */}
+    <nav className="navbar">
+      {/* Shop Icon */}
       <NavLink to="/" end>
         <i className="bi bi-shop-window" />
       </NavLink>
-       {/* Cart Icon with Badge */}
-       <NavLink to="/cart" className={({ isActive }) => `${isActive && 'selected'}`}>
+      {/* Cart Icon with Badge */}
+      <NavLink
+        to="/cart"
+        className={({ isActive }) => `${isActive && "selected"}`}>
+
+        {/* Number of items in the Navbar */}
         <i className="bi bi-cart3" />
-        <span className="cart-number">7</span>
+        <sup className="cart-number">{cartProductIds.length}</sup>
       </NavLink>
 
       {/* Products Icon */}
-      <NavLink to="/" className={({ isActive }) => (isActive ? "selected" : "")} title="Products" end>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "selected" : "")}
+        title="Products"
+        end>
         <i className="bi bi-grid" />
       </NavLink>
     </nav>
-  
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
